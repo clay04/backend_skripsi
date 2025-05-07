@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS t_scholarship
+(
+    uuid             VARCHAR(36)                NOT NULL,
+    nim              VARCHAR(50),
+    nomor_registrasi VARCHAR(50),
+    scholarship_type VARCHAR(100),
+    status           VARCHAR(20),
+    address_line_1   VARCHAR(255),
+    address_line_2   VARCHAR(255),
+    highschool_name  VARCHAR(150),
+    father_name      VARCHAR(150),
+    mother_name      VARCHAR(150),
+    user_uuid        VARCHAR(36),
+    major_uuid     VARCHAR(36),
+    created_by       VARCHAR(32)                NOT NULL,
+    created_at       TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated_by       VARCHAR(32)                NOT NULL,
+    updated_at       TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    is_deleted       BOOLEAN                     NOT NULL,
+    deleted_at       TIMESTAMP WITHOUT TIME ZONE,
+    deleted_by       VARCHAR(32),
+    CONSTRAINT pk_t_scholarship PRIMARY KEY (uuid),
+    CONSTRAINT uc_t_scholarship_major_uuid UNIQUE (major_uuid),
+    CONSTRAINT FK_T_SCHOLARSHIP_ON_MAJOR_UUID FOREIGN KEY (major_uuid) REFERENCES t_major (uuid),
+    CONSTRAINT FK_T_SCHOLARSHIP_ON_USER_UUID FOREIGN KEY (user_uuid) REFERENCES t_user (uuid)
+);
