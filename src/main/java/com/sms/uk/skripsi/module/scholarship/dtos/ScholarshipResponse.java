@@ -39,6 +39,8 @@ public class ScholarshipResponse {
 
     private MajorResponse major;
 
+    private Boolean documentCompletionStatus;
+
     private MasterUserResponse masterUser;
 
 }

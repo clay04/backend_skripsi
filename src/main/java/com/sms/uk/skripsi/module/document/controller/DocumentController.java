@@ -10,6 +10,7 @@ import com.sms.uk.skripsi.module.document.repository.DocumentRepository;
 import com.sms.uk.skripsi.module.document.services.DocumentServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.UrlResource;
@@ -36,6 +37,7 @@ import java.util.UUID;
 @RequestMapping("/document")
 @RequiredArgsConstructor
 @Tag(name ="Document")
+@Slf4j
 public class DocumentController {
 
     private final DocumentServices documentServices;
@@ -130,6 +132,7 @@ public class DocumentController {
             documentServices.updateDocumentCompletionStatus(uploadedBy, isComplete);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
+            log.error("Error updating document status for user: {}. Error: {}", uploadedBy, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update document status.");
         }
     }

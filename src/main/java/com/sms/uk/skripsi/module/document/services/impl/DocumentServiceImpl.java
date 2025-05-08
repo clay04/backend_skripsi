@@ -209,10 +209,6 @@ public class DocumentServiceImpl implements DocumentServices {
             throw new RuntimeException("Not all documents are verified.");
         }
 
-        // Update scholarship status to approved/rejected based on verification
-        // Assuming you have a method to update scholarship status (not shown in this example)
-        // updateScholarshipStatus(uploadedBy, isApproved);
-
         return Map.of("status", isApproved ? "Approved" : "Rejected");
     }
 
@@ -220,16 +216,16 @@ public class DocumentServiceImpl implements DocumentServices {
     public void updateDocumentCompletionStatus(String uploadedBy, boolean isComplete) {
         List<Document> documents = documentRepository.findUploadedByUser(uploadedBy);
 
-        boolean allVerified = documents.stream().allMatch(Document::getIsVerified);
+        boolean documentCompletionStatus = documents.stream().allMatch(Document::getIsVerified);
 
-        Optional<Scholarship> scholarshipOptional = scholarshipRepository.findByUserUuid(uploadedBy);
+        Optional<Scholarship> scholarshipOptional = scholarshipRepository.findByUuid(uploadedBy);
         if (scholarshipOptional.isEmpty()) {
             throw new NoSuchElementException("Scholarship not found for user: " + uploadedBy);
         }
 
         Scholarship scholarship = scholarshipOptional.get();
 
-        scholarship.setDocumentCompletionStatus(Boolean.valueOf(allVerified ? "LENGKAP" : "TIDAK LENGKAP"));
+        scholarship.setDocumentCompletionStatus(documentCompletionStatus);
         scholarshipRepository.save(scholarship);
     }
 

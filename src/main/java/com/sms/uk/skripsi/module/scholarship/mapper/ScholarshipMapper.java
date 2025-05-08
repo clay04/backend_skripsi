@@ -47,6 +47,7 @@ public class ScholarshipMapper {
                 .motherName(request.getMotherName())
                 .user(masterUser)
                 .major(major)
+                .documentCompletionStatus(request.getDocumentCompletionStatus())
                 .build();
     }
 
@@ -87,6 +88,7 @@ public class ScholarshipMapper {
                 .fatherName(scholarship.getFatherName())
                 .motherName(scholarship.getMotherName())
                 .major(majorMapper.convertEntityToResponse(scholarship.getMajor()))
+                .documentCompletionStatus(scholarship.getDocumentCompletionStatus() != null ? scholarship.getDocumentCompletionStatus() : false)
                 .masterUser(userManagementMapper.convertEntityToResponse(scholarship.getUser()))
                 .createdAt(DateTimeUtil.convertToDetailDateTime(scholarship.getCreatedAt()))
                 .createdBy(scholarship.getCreatedBy())

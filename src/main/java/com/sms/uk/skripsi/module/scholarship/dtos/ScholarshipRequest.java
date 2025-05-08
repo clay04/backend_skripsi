@@ -1,6 +1,7 @@
 package com.sms.uk.skripsi.module.scholarship.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data
@@ -35,4 +36,7 @@ public class ScholarshipRequest {
 
     @JsonProperty("major_id")
     private String majorId;
+
+    @Column(name = "document_completion_status")
+    private Boolean documentCompletionStatus;
 }
